@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="git简介Git是由Linux的创始人Linus Torvalds在2005年编写完成，不断发展完善的主流的分支式版本控制系统，可以有效、快速的处理任何或小或大的项目。本篇主要介绍git常用的操作，方面大家入门，具体的介绍就不展开说明了，详情见：Git官网链接。下面是本人在操作过程中理解到的git与svn的主要不同点，后面就直接展开操作了。  git属于分支式版本控制系统，svn属于集中式版本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习">
+<meta property="og:url" content="http://example.com/2018/05/15/git-learning/index.html">
+<meta property="og:site_name" content="团队技术分享博客">
+<meta property="og:description" content="git简介Git是由Linux的创始人Linus Torvalds在2005年编写完成，不断发展完善的主流的分支式版本控制系统，可以有效、快速的处理任何或小或大的项目。本篇主要介绍git常用的操作，方面大家入门，具体的介绍就不展开说明了，详情见：Git官网链接。下面是本人在操作过程中理解到的git与svn的主要不同点，后面就直接展开操作了。  git属于分支式版本控制系统，svn属于集中式版本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2018/05/15/git-learning/git-learning1.jpg">
+<meta property="og:image" content="http://example.com/2018/05/15/git-learning/git-learning2.png">
+<meta property="article:published_time" content="2018-05-15T07:47:27.000Z">
+<meta property="article:modified_time" content="2023-02-22T07:28:18.000Z">
+<meta property="article:author" content="team-manager">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2018/05/15/git-learning/git-learning1.jpg">
+
+
+<link rel="canonical" href="http://example.com/2018/05/15/git-learning/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/05/15/git-learning/","path":"2018/05/15/git-learning/","title":"Git学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git学习 | 团队技术分享博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">团队技术分享博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东区交付五部技术分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">git简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">git安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.1.</span> <span class="nav-text">基本配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.2.</span> <span class="nav-text">文本编辑器配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.3.</span> <span class="nav-text">差异分析工具配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">git基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E4%BB%93%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">取得仓库文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E4%BB%93%E5%BA%93%E7%9A%84%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95"><span class="nav-number">3.2.</span> <span class="nav-text">记录仓库的更新记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2"><span class="nav-number">3.3.</span> <span class="nav-text">查看提交历史</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#git-log%E7%9A%84%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9"><span class="nav-number">3.3.1.</span> <span class="nav-text">git log的常用选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-log%E7%9A%84%E9%99%90%E5%88%B6%E8%BE%93%E5%87%BA"><span class="nav-number">3.3.2.</span> <span class="nav-text">git log的限制输出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E6%93%8D%E4%BD%9C"><span class="nav-number">3.4.</span> <span class="nav-text">撤销操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E7%9B%B8%E5%85%B3%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">git相关原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E4%BA%86%E8%A7%A3git%E6%96%87%E4%BB%B6%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%8A%B6%E6%80%81%E5%8F%8A%E6%B5%81%E7%A8%8B"><span class="nav-number">4.1.</span> <span class="nav-text">先了解git文件的四种状态及流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%93%E5%BA%93%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.2.</span> <span class="nav-text">仓库的目录结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E8%BF%9B%E9%98%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">git进阶操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">5.1.</span> <span class="nav-text">Git分支操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">5.1.1.</span> <span class="nav-text">分支相关命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%88%86%E6%94%AF%E5%86%B2%E7%AA%81"><span class="nav-number">5.1.2.</span> <span class="nav-text">解决分支冲突</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub%E6%93%8D%E4%BD%9C"><span class="nav-number">5.2.</span> <span class="nav-text">GitHub操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E5%92%8C%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.2.1.</span> <span class="nav-text">注册和连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E4%B8%8EGitHub%E4%BA%A4%E4%BA%92"><span class="nav-number">5.2.2.</span> <span class="nav-text">本地与GitHub交互</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E6%89%A9%E5%B1%95%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">git扩展操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E6%A0%87%E7%AD%BE"><span class="nav-number">6.1.</span> <span class="nav-text">打标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%B7%E5%88%AB%E5%90%8D"><span class="nav-number">6.2.</span> <span class="nav-text">起别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%82%A8%E8%97%8F"><span class="nav-number">6.3.</span> <span class="nav-text">储藏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">git参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">team-manager</p>
+  <div class="site-description" itemprop="description">分享各小组的技术成果</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/05/15/git-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="team-manager">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="团队技术分享博客">
+      <meta itemprop="description" content="分享各小组的技术成果">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Git学习 | 团队技术分享博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-05-15 15:47:27" itemprop="dateCreated datePublished" datetime="2018-05-15T15:47:27+08:00">2018-05-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-22 15:28:18" itemprop="dateModified" datetime="2023-02-22T15:28:18+08:00">2023-02-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img src="/2018/05/15/git-learning/git-learning1.jpg" class="" title="git-logo 500 400">
+
+<h2 id="git简介"><a href="#git简介" class="headerlink" title="git简介"></a>git简介</h2><p>Git是由Linux的创始人Linus Torvalds在2005年编写完成，不断发展完善的主流的分支式版本控制系统，可以有效、快速的处理任何或小或大的项目。本篇主要介绍git常用的操作，方面大家入门，具体的介绍就不展开说明了，详情见：<a target="_blank" rel="noopener" href="https://git-scm.com/">Git官网链接</a>。下面是本人在操作过程中理解到的git与svn的主要不同点，后面就直接展开操作了。</p>
+<ul>
+<li>git属于分支式版本控制系统，svn属于集中式版本控制系统</li>
+<li>git比较安全，如果版本库出现问题，更容易修复</li>
+<li>svn只有一个中央版本库，git可以有无限个版本库</li>
+<li>git分支的新建不会影响其他成员</li>
+<li>git占用空间小，速度快</li>
+</ul>
+<span id="more"></span>
+<h2 id="git安装和配置"><a href="#git安装和配置" class="headerlink" title="git安装和配置"></a>git安装和配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>git可以在多个平台安装，下面列出三种：</p>
+<ul>
+<li><p>Linux：用系统提供的包管理工具安装</p>
+</li>
+<li><p>Mac：使用图形化的 Git 安装工具或通过MacPorts安装  </p>
+</li>
+<li><p>Windows：下载 exe 安装文件并运行</p>
+</li>
+</ul>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>安装完成后，打开“Git Bash”，弹出命令窗口进行配置：</p>
+<h4 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h4><p>第一个要配置的是个人的用户名称和电子邮件地址。这两条配置很重要，每次 Git 提交时都会引用这两条信息，说明是谁提交了更新，所以会随更新内容一起被永久纳入历史记录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global user.name <span class="string">&quot;Yuan&quot;</span></span>  </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global user.email xxx@qq.com</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="文本编辑器配置"><a href="#文本编辑器配置" class="headerlink" title="文本编辑器配置"></a>文本编辑器配置</h4><p>接下来要设置的是默认使用的文本编辑器。Git需要输入一些额外消息的时候，会自动调用一个外部文本编辑器。比如使用vi： </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global core.editor vi</span> </span><br></pre></td></tr></table></figure>
+
+<h4 id="差异分析工具配置"><a href="#差异分析工具配置" class="headerlink" title="差异分析工具配置"></a>差异分析工具配置</h4><p>还有一个比较常用的是，在解决合并冲突时使用哪种差异分析工具。比如使用 vimdiff：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global merge.tool vimdiff</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="git基本操作"><a href="#git基本操作" class="headerlink" title="git基本操作"></a>git基本操作</h2><h3 id="取得仓库文件"><a href="#取得仓库文件" class="headerlink" title="取得仓库文件"></a>取得仓库文件</h3><p>有两种取得 Git 项目仓库的方法。第一种是在现存的目录下，通过导入所有文件来创建新的 Git 仓库。第二种是从已有的 Git 仓库克隆出一个新的镜像仓库来。</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初始化新仓库</td>
+<td>$ <strong>git init</strong></td>
+</tr>
+<tr>
+<td>从远程仓库复制出新仓库</td>
+<td>$ <strong>git clone [url]</strong></td>
+</tr>
+</tbody></table>
+<h3 id="记录仓库的更新记录"><a href="#记录仓库的更新记录" class="headerlink" title="记录仓库的更新记录"></a>记录仓库的更新记录</h3><p>文件工作目录下的每一个文件都不外乎这两种状态：已跟踪或未跟踪。 已跟踪的文件是指那些被纳入了版本控制的文件，在上一次快照中有它们的记录，在工作一段时间后，它们的状态可能处于未修改，已修改或已放入暂存区。  </p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检查当前文件状态</td>
+<td>$ <strong>git status</strong></td>
+</tr>
+<tr>
+<td>跟踪新文件</td>
+<td>$ <strong>git add [name]</strong></td>
+</tr>
+<tr>
+<td>比较修改后的差异</td>
+<td>$ <strong>git diff</strong></td>
+</tr>
+<tr>
+<td>暂存已修改文件</td>
+<td>$ <strong>git add [name]</strong></td>
+</tr>
+<tr>
+<td>提交更新</td>
+<td>$ <strong>git commit -m [mess]</strong></td>
+</tr>
+<tr>
+<td>删除文件</td>
+<td>$ <strong>git rm [name]</strong></td>
+</tr>
+<tr>
+<td>移动文件</td>
+<td>$ <strong>git mv [source] [desti]</strong></td>
+</tr>
+<tr>
+<td>重命名文件</td>
+<td>$ <strong>git mv [oldname] [newname]</strong></td>
+</tr>
+</tbody></table>
+<h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><p>在提交了若干更新，又或者克隆了某个项目之后，想要回顾提交历史。完成这个任务最简单而又有效的工具是 $<strong>git log</strong> 命令,也可以使用简化的$<strong>git shortlog</strong>命令查看简要信息。默认不用任何参数的话，git log 会按提交时间列出所有的更新，最近的更新排在最上面。    </p>
+<h4 id="git-log的常用选项"><a href="#git-log的常用选项" class="headerlink" title="git log的常用选项"></a>git log的常用选项</h4><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-p</td>
+<td>显示每次更新之间的差异。</td>
+</tr>
+<tr>
+<td>–stat</td>
+<td>列出修改的文件和每个文件中修改了多少行。</td>
+</tr>
+<tr>
+<td>–shortstat</td>
+<td>列出修改多少行，不显示哪些文件。</td>
+</tr>
+<tr>
+<td>–name-only</td>
+<td>仅在提交信息后显示已修改的文件。</td>
+</tr>
+</tbody></table>
+<h4 id="git-log的限制输出"><a href="#git-log的限制输出" class="headerlink" title="git log的限制输出"></a>git log的限制输出</h4><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-(n)</td>
+<td>仅显示最近的 n 条提交</td>
+</tr>
+<tr>
+<td>–since&#x3D;”xxxx-xx-xx”, –after&#x3D;”xxxx-xx-xx”</td>
+<td>仅显示指定时间之后的提交。</td>
+</tr>
+<tr>
+<td>–until&#x3D;”xxxx-xx-xx”, –before&#x3D;”xxxx-xx-xx”</td>
+<td>仅显示指定时间之前的提交。</td>
+</tr>
+<tr>
+<td>–author</td>
+<td>仅显示指定作者相关的提交。</td>
+</tr>
+<tr>
+<td>–committer</td>
+<td>仅显示指定提交者相关的提交。</td>
+</tr>
+<tr>
+<td>–grep</td>
+<td>仅显示含指定关键字的提交</td>
+</tr>
+</tbody></table>
+<h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><p>撤销在不同场景运用的命令有所不同：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>取消暂存的文件</td>
+<td>$ <strong>git reset HEAD [file]</strong></td>
+</tr>
+<tr>
+<td>撤消对文件的修改</td>
+<td>$ <strong>git checkout – [file]</strong></td>
+</tr>
+</tbody></table>
+<h2 id="git相关原理"><a href="#git相关原理" class="headerlink" title="git相关原理"></a>git相关原理</h2><h3 id="先了解git文件的四种状态及流程"><a href="#先了解git文件的四种状态及流程" class="headerlink" title="先了解git文件的四种状态及流程"></a>先了解git文件的四种状态及流程</h3><p>git工作目录下文件有的四种状态，分别为：未跟踪、未修改、已修改、已暂存，基本操作流程包括：</p>
+<ol>
+<li>对文件进行修改和处理</li>
+<li>将文件保存到暂存区</li>
+<li>将暂存区的文件提交</li>
+</ol>
+<p>具体流程如图所示：</p>
+<img src="/2018/05/15/git-learning/git-learning2.png" class="" title="git-flow">
+
+<h3 id="仓库的目录结构"><a href="#仓库的目录结构" class="headerlink" title="仓库的目录结构"></a>仓库的目录结构</h3><p>在操作系统中，仓库就是一个文件夹，在创建时生成，名为.git，git版本控制所需要的所有文件都在这个文件夹中。  核心文件有：config文件、objects文件夹、HEAD文件、index文件以及refs文件夹：</p>
+<ul>
+<li>config文件：该文件主要记录针对该项目的一些配置信息，仓库的配置文件，很多配置信息都在这里。</li>
+<li>objects文件夹：该文件夹主要包含git对象。Git中的文件和一些操作都会以git对象来保存，git对象分为BLOB、tree和commit三种类型。  </li>
+<li>HEAD文件：该文件指明了git branch（即当前分支）的结果，比如当前分支是master，则该文件就会指向master，但是并不是存储一个master字符串，而是分支在refs中的表示，相当于指针。例如当前在master分支，则文件内容为ref: refs&#x2F;heads&#x2F;master，若新建并切换分支到master1，则HEAD文件的内容为ref: refs&#x2F;heads&#x2F;master1。</li>
+<li>index文件：该文件保存了暂存区域的信息。该文件某种程度就是缓冲区，内容包括它指向的文件的时间戳、文件名、sha1值等</li>
+<li>refs文件夹：该文件夹存储引用文件。其中heads文件夹存储本地每一个分支最近一次commit的sha-1值，每个分支一个文件；remotes文件夹则记录最后一次和每一个远程仓库的通信，Git会把最后一次推送到这个remote的每个分支的值都记录在这个文件夹中</li>
+</ul>
+<h2 id="git进阶操作"><a href="#git进阶操作" class="headerlink" title="git进阶操作"></a>git进阶操作</h2><h3 id="Git分支操作"><a href="#Git分支操作" class="headerlink" title="Git分支操作"></a>Git分支操作</h3><p>Git处理分支的方式轻量，创建新分支这一操作能在瞬间完成，并且在不同分支之间的切换操作也是一样便捷。 </p>
+<h4 id="分支相关命令"><a href="#分支相关命令" class="headerlink" title="分支相关命令"></a>分支相关命令</h4><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看分支</td>
+<td>$ <strong>git branch</strong></td>
+</tr>
+<tr>
+<td>创建分支</td>
+<td>$ <strong>git branch [name]</strong></td>
+</tr>
+<tr>
+<td>切换分支</td>
+<td>$ <strong>git checkout [name]</strong></td>
+</tr>
+<tr>
+<td>创建并切换分支</td>
+<td>$ <strong>git checkout -b [name]</strong></td>
+</tr>
+<tr>
+<td>合并某分支到当前分支</td>
+<td>$ <strong>git merge [name]</strong></td>
+</tr>
+<tr>
+<td>删除分支</td>
+<td>$ <strong>git branch -d [name]</strong></td>
+</tr>
+</tbody></table>
+<h4 id="解决分支冲突"><a href="#解决分支冲突" class="headerlink" title="解决分支冲突"></a>解决分支冲突</h4><p>当两个分支对同一个文件进行更改的时候，就会产生分支冲突。<br>解决方法：当发生分支合并冲突的时候，使用<strong>git status</strong>命令，版本库会告诉我们哪个文件产生了冲突，然后手动将两个文件内容修改一样，再添加到暂存区并提交即可解决分支合并冲突。</p>
+<h3 id="GitHub操作"><a href="#GitHub操作" class="headerlink" title="GitHub操作"></a>GitHub操作</h3><p>github是一个基于git的代码托管平台，可以实现 Git 托管、问题追踪、代码审查以及其它事情。高效地使用GitHub，是我们需要学习的。</p>
+<h4 id="注册和连接"><a href="#注册和连接" class="headerlink" title="注册和连接"></a>注册和连接</h4><p>注册和连接就不详细叙述了，需要提一下的是github支持http和https两种连接方式，具体可直接参考官方提供的操作：<br><a target="_blank" rel="noopener" href="https://github.com/">GitHub官网链接</a><br><a target="_blank" rel="noopener" href="https://help.github.com/articles/generating-ssh-keys">参阅 GitHub 的 SSH 密钥指南</a>  </p>
+<h4 id="本地与GitHub交互"><a href="#本地与GitHub交互" class="headerlink" title="本地与GitHub交互"></a>本地与GitHub交互</h4><p>通过 Git 分享你的代码或者与其他开发人员合作，你就需要将数据放到一台其他开发人员能够连接的服务器上。用Github作为远程仓库，是一个很好的选择。一般可以这样理解：<strong>pull&#x3D;fetch+merge</strong> ，远程仓库相关命令如下：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看远程仓库名称</td>
+<td>$ <strong>git remote</strong></td>
+</tr>
+<tr>
+<td>查看远程仓库地址等详细信息</td>
+<td>$ <strong>git remote -v</strong></td>
+</tr>
+<tr>
+<td>添加远程仓库</td>
+<td>$ <strong>git remote add [shortname] [url]</strong></td>
+</tr>
+<tr>
+<td>从远程仓库中拉取到本地</td>
+<td>$ <strong>git fetch [remote-name]</strong></td>
+</tr>
+<tr>
+<td>推送到远程仓库</td>
+<td>$ <strong>git push [shortname] [branch-name]</strong></td>
+</tr>
+<tr>
+<td>强制push到远程仓库</td>
+<td><strong>$ git push -u [shortname] [branch-name] -f</strong></td>
+</tr>
+<tr>
+<td>将远程存储库中的更改合并到本地</td>
+<td>$ <strong>git pull [remote-name] [remote-branch]:[local-branch]</strong></td>
+</tr>
+<tr>
+<td>查看远程仓库</td>
+<td>$ <strong>git remote show [remote-name]</strong></td>
+</tr>
+<tr>
+<td>远程仓库的重命名</td>
+<td>$ <strong>git remote rename [old name] [new name]</strong></td>
+</tr>
+<tr>
+<td>远程仓库的移除</td>
+<td>$ <strong>git remote rm [remote-name]</strong></td>
+</tr>
+</tbody></table>
+<h2 id="git扩展操作"><a href="#git扩展操作" class="headerlink" title="git扩展操作"></a>git扩展操作</h2><h3 id="打标签"><a href="#打标签" class="headerlink" title="打标签"></a>打标签</h3><p>像其他版本控制系统一样，Git 可以给历史中的某一个提交打上标签，以示重要。<br>git标签分为两种类型：轻量标签和附注标签。轻量标签是指向提交对象的引用，附注标签则是仓库中的一个独立对象。建议使用附注标签。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新建轻量标签</td>
+<td>$ <strong>git tag [tagname]</strong></td>
+</tr>
+<tr>
+<td>新建附注标签</td>
+<td>$ <strong>git tag -a [tagname]-m [message]</strong></td>
+</tr>
+<tr>
+<td>查看所有标签名</td>
+<td>$ <strong>git tag</strong></td>
+</tr>
+<tr>
+<td>查看某个轻量标签的提交信息</td>
+<td>$ <strong>git show [tagname]</strong></td>
+</tr>
+<tr>
+<td>显示离当前提交最近的标签</td>
+<td>$ <strong>git describe</strong></td>
+</tr>
+<tr>
+<td>查看某个附注标签的标签信息和提交信息</td>
+<td>$ <strong>git show [tagname]</strong></td>
+</tr>
+<tr>
+<td>对过去的提交打标签</td>
+<td>$ <strong>git tag [tagname] [commitid]</strong></td>
+</tr>
+<tr>
+<td>git push不会提交标签到远程仓库，需手动提交标签</td>
+<td>$ <strong>git push [shortname] [tagname]</strong></td>
+</tr>
+<tr>
+<td>提交所有标签</td>
+<td>$ <strong>git push [shortname] –tags</strong></td>
+</tr>
+<tr>
+<td>删除本地仓库标签</td>
+<td>$ <strong>git tag -d [tagname]</strong></td>
+</tr>
+<tr>
+<td>删除远程仓库标签</td>
+<td>$ <strong>git push [shortname] :refs&#x2F;tags&#x2F;[tagname]</strong></td>
+</tr>
+</tbody></table>
+<h3 id="起别名"><a href="#起别名" class="headerlink" title="起别名"></a>起别名</h3><p>为复杂的命令起别名，可以不用每次都输入完整的命令，只需输入别名即可。删除配置的别名，在文件.git&#x2F;config中，直接把对应行删除。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>为当前仓库配置别名</td>
+<td>$ <strong>git config alias.[newname] [oldname]</strong></td>
+</tr>
+<tr>
+<td>为当前用户下所有仓库配置别名</td>
+<td>$ <strong>git config –global alias.[newname] [oldname]</strong></td>
+</tr>
+</tbody></table>
+<h3 id="储藏"><a href="#储藏" class="headerlink" title="储藏"></a>储藏</h3><p>“储藏”可以获取工作目录的中间状态——也就是修改过的被追踪的文件和暂存的变更，并将它保存到一个未完结变更的堆栈中，随时可以重新应用。  </p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>建立新的储存</td>
+<td>$ <strong>git stash</strong></td>
+</tr>
+<tr>
+<td>查看现有的储存</td>
+<td>$ <strong>git stash list</strong></td>
+</tr>
+<tr>
+<td>取出最近的储存</td>
+<td>$ <strong>git stash apply</strong></td>
+</tr>
+<tr>
+<td>取出更早的储存</td>
+<td>$ <strong>git stash apply [stashname]</strong></td>
+</tr>
+<tr>
+<td>移除堆栈中的某个储存</td>
+<td>$ <strong>git stash drop [stashname]</strong></td>
+</tr>
+<tr>
+<td>取出最近的储存并立刻将其从堆栈中移走</td>
+<td><strong>git stash pop</strong></td>
+</tr>
+<tr>
+<td>取出更早的储存并立刻将其从堆栈中移走</td>
+<td><strong>git stash pop [stashname]</strong></td>
+</tr>
+</tbody></table>
+<h2 id="git参考资料"><a href="#git参考资料" class="headerlink" title="git参考资料"></a>git参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/docs">官方文档</a>  ：   <a target="_blank" rel="noopener" href="https://git-scm.com/docs">https://git-scm.com/docs</a></li>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/book">中文推荐文档</a>  ：  <a target="_blank" rel="noopener" href="https://git-scm.com/book">https://git-scm.com/book</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"># git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/04/19/markdown-learning/" rel="prev" title="Markdown学习">
+                  <i class="fa fa-chevron-left"></i> Markdown学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/09/11/maven-learning/" rel="next" title="Maven基础">
+                  Maven基础 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">team-manager</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本篇主要的内容是：在日常工作中，记录DB2的一些操作笔记。  数据导入导出 分组统计查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DB2数据库使用小技巧">
+<meta property="og:url" content="http://example.com/2018/04/12/db2-use-notes/index.html">
+<meta property="og:site_name" content="团队技术分享博客">
+<meta property="og:description" content="本篇主要的内容是：在日常工作中，记录DB2的一些操作笔记。  数据导入导出 分组统计查询">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2018/04/12/db2-use-notes/db.jpg">
+<meta property="og:image" content="http://example.com/2018/04/12/db2-use-notes/sql1.jpg">
+<meta property="og:image" content="http://example.com/2018/04/12/db2-use-notes/sql2.jpg">
+<meta property="og:image" content="http://example.com/2018/04/12/db2-use-notes/sql3.jpg">
+<meta property="og:image" content="http://example.com/2018/04/12/db2-use-notes/sql4.jpg">
+<meta property="article:published_time" content="2018-04-12T03:41:27.000Z">
+<meta property="article:modified_time" content="2023-02-22T07:28:10.000Z">
+<meta property="article:author" content="team-manager">
+<meta property="article:tag" content="db2">
+<meta property="article:tag" content="数据导入导出">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2018/04/12/db2-use-notes/db.jpg">
+
+
+<link rel="canonical" href="http://example.com/2018/04/12/db2-use-notes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/04/12/db2-use-notes/","path":"2018/04/12/db2-use-notes/","title":"DB2数据库使用小技巧"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>DB2数据库使用小技巧 | 团队技术分享博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">团队技术分享博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东区交付五部技术分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9"><span class="nav-number">2.</span> <span class="nav-text">主要内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5"><span class="nav-number">2.2.</span> <span class="nav-text">数据的导出导入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.2.1.</span> <span class="nav-text">登录数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E8%A1%A8%E4%B8%AD%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E5%88%B0%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.2.</span> <span class="nav-text">从表中导出数据到文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E5%88%B0%E8%A1%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">从文件导入数据到表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E5%B0%8F%E8%AE%A1"><span class="nav-number">2.3.</span> <span class="nav-text">分组小计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">team-manager</p>
+  <div class="site-description" itemprop="description">分享各小组的技术成果</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/04/12/db2-use-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="team-manager">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="团队技术分享博客">
+      <meta itemprop="description" content="分享各小组的技术成果">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="DB2数据库使用小技巧 | 团队技术分享博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DB2数据库使用小技巧
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-04-12 11:41:27" itemprop="dateCreated datePublished" datetime="2018-04-12T11:41:27+08:00">2018-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-22 15:28:10" itemprop="dateModified" datetime="2023-02-22T15:28:10+08:00">2023-02-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img src="/2018/04/12/db2-use-notes/db.jpg" class="" width="500" height="400">
+
+<p>本篇主要的内容是：在日常工作中，记录DB2的一些操作笔记。</p>
+<ul>
+<li>数据导入导出</li>
+<li>分组统计查询</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在工作当中，会频繁的对数据进行一系列的操作。这里记录了使用DB2数据库比较常见的命令。供以后参考。</p>
+<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>创建一张临时表，用来举例说明</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span></span><br><span class="line">    TB_A</span><br><span class="line">    (</span><br><span class="line">        SEQ <span class="type">INTEGER</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> GENERATED <span class="keyword">BY</span> <span class="keyword">DEFAULT</span> <span class="keyword">AS</span> <span class="keyword">IDENTITY</span>,</span><br><span class="line">        NAME <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">        AGE <span class="type">INTEGER</span>,</span><br><span class="line">        SALARY <span class="type">DECIMAL</span>(<span class="number">18</span>,<span class="number">2</span>),</span><br><span class="line">        <span class="keyword">PRIMARY</span> KEY (SEQ)</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+
+<p>插入预先准备的演示数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;tom&#x27;</span>,<span class="number">18</span>,<span class="number">3000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;bob&#x27;</span>,<span class="number">18</span>,<span class="number">3000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;jck&#x27;</span>,<span class="number">18</span>,<span class="number">3000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;lil&#x27;</span>,<span class="number">20</span>,<span class="number">3000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;mer&#x27;</span>,<span class="number">20</span>,<span class="number">4000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;gor&#x27;</span>,<span class="number">20</span>,<span class="number">4000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;hah&#x27;</span>,<span class="number">21</span>,<span class="number">2000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;yiy&#x27;</span>,<span class="number">21</span>,<span class="number">4020</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;sor&#x27;</span>,<span class="number">21</span>,<span class="number">4010</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;ppo&#x27;</span>,<span class="number">21</span>,<span class="number">2000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;iio&#x27;</span>,<span class="number">21</span>,<span class="number">4220</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> TB_A (NAME,AGE,SALARY) <span class="keyword">values</span> (<span class="string">&#x27;sse&#x27;</span>,<span class="number">21</span>,<span class="number">4110</span>);</span><br></pre></td></tr></table></figure>
+
+<p>到目前为止，准备工作已经完成：创建了一张临时表，同时插入了演示数据。</p>
+<h3 id="数据的导出导入"><a href="#数据的导出导入" class="headerlink" title="数据的导出导入"></a>数据的导出导入</h3><p>在实际工作当中，经常会使用命令行工具对生产上的数据进行导出，然后对把导出的数据再导入本地临时表中，然后具体分析。</p>
+<h4 id="登录数据库"><a href="#登录数据库" class="headerlink" title="登录数据库"></a>登录数据库</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/app&gt;db2 connect to DB_NAME user USER_NAME using passwd</span><br><span class="line"></span><br><span class="line">   Database Connection Information</span><br><span class="line"></span><br><span class="line"> Database server        = DB2/LINUXX8664 10.1.3</span><br><span class="line"> SQL authorization ID   = USER_NAME</span><br><span class="line"> Local database <span class="built_in">alias</span>   = DB_NAME</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>DB_NAME:</strong> 数据库名称, <strong>USER_NAME:</strong> 用户名，<strong>passwd :</strong>  密码</p>
+</blockquote>
+<h4 id="从表中导出数据到文件"><a href="#从表中导出数据到文件" class="headerlink" title="从表中导出数据到文件"></a>从表中导出数据到文件</h4><p>在日常工作中，我更喜欢将数据以.ixf文件的格式来导出、导入数据，但必须保证生产上表的结构和字段顺序要和本地临时表保持完全一致，否则会出错。</p>
+<p>使用<strong>export</strong>命令导出数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/app&gt;db2 <span class="string">&quot;export to TB_A.ixf of ixf select * from TB_A&quot;</span>;</span><br><span class="line">SQL3104N  The Export utility is beginning to <span class="built_in">export</span> data to file <span class="string">&quot;TB_A.ixf&quot;</span>.</span><br><span class="line"></span><br><span class="line">SQL3105N  The Export utility has finished exporting <span class="string">&quot;12&quot;</span> rows.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Number of rows exported: 12</span><br><span class="line"></span><br><span class="line">/app&gt;</span><br><span class="line">/app&gt;db2 <span class="string">&quot;export to TB_A.csv of del select * from TB_A&quot;</span>;</span><br><span class="line">SQL3104N  The Export utility is beginning to <span class="built_in">export</span> data to file <span class="string">&quot;TB_A.csv&quot;</span>.</span><br><span class="line"></span><br><span class="line">SQL3105N  The Export utility has finished exporting <span class="string">&quot;12&quot;</span> rows.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Number of rows exported: 12</span><br></pre></td></tr></table></figure>
+
+<h4 id="从文件导入数据到表"><a href="#从文件导入数据到表" class="headerlink" title="从文件导入数据到表"></a>从文件导入数据到表</h4><p>使用<strong>import</strong>命令导入数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/app&gt;db2 <span class="string">&quot;import from TB_A.ixf of ixf insert into TB_A&quot;</span>;</span><br><span class="line">SQL3150N  The H record <span class="keyword">in</span> the PC/IXF file has product <span class="string">&quot;DB2    02.00&quot;</span>, <span class="built_in">date</span> </span><br><span class="line"><span class="string">&quot;20180412&quot;</span>, and time <span class="string">&quot;142939&quot;</span>.</span><br><span class="line"></span><br><span class="line">SQL3153N  The T record <span class="keyword">in</span> the PC/IXF file has name <span class="string">&quot;TB_A.ixf&quot;</span>, qualifier <span class="string">&quot;&quot;</span>, </span><br><span class="line">and <span class="built_in">source</span> <span class="string">&quot;            &quot;</span>.</span><br><span class="line"></span><br><span class="line">SQL3109N  The utility is beginning to load data from file <span class="string">&quot;TB_A.ixf&quot;</span>.</span><br><span class="line"></span><br><span class="line">SQL3110N  The utility has completed processing.  <span class="string">&quot;12&quot;</span> rows were <span class="built_in">read</span> from the </span><br><span class="line">input file.</span><br><span class="line"></span><br><span class="line">SQL3221W  ...Begin COMMIT WORK. Input Record Count = <span class="string">&quot;12&quot;</span>.</span><br><span class="line"></span><br><span class="line">SQL3222W  ...COMMIT of any database changes was successful.</span><br><span class="line"></span><br><span class="line">SQL3149N  <span class="string">&quot;12&quot;</span> rows were processed from the input file.  <span class="string">&quot;12&quot;</span> rows were </span><br><span class="line">successfully inserted into the table.  <span class="string">&quot;0&quot;</span> rows were rejected.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Number of rows <span class="built_in">read</span>         = 12</span><br><span class="line">Number of rows skipped      = 0</span><br><span class="line">Number of rows inserted     = 12</span><br><span class="line">Number of rows updated      = 0</span><br><span class="line">Number of rows rejected     = 0</span><br><span class="line">Number of rows committed    = 12</span><br><span class="line"></span><br><span class="line">/app&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分组小计"><a href="#分组小计" class="headerlink" title="分组小计"></a>分组小计</h3><p>在日常工作中，偶尔会有这种需求：对分组后的结果集取每组前n条信息，在之前学习的oracle数据库中，有伪劣的概念，在DB2中，也有办法来实现。下面以几个小例子来展示。</p>
+<p>使用**row_number() over(…)**来对分组后结果集进行再次处理。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> age,name,salary,<span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">asc</span>) <span class="keyword">as</span> age_rn </span><br><span class="line"><span class="keyword">from</span> tb_a </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> age,name,salary <span class="keyword">order</span> <span class="keyword">by</span> age;</span><br></pre></td></tr></table></figure>
+<img src="/2018/04/12/db2-use-notes/sql1.jpg" class=""> 
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> age,name,salary,<span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> age <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">asc</span>) <span class="keyword">as</span> age_rn </span><br><span class="line"><span class="keyword">from</span> tb_a </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> age,name,salary <span class="keyword">order</span> <span class="keyword">by</span> age;</span><br></pre></td></tr></table></figure>
+<img src="/2018/04/12/db2-use-notes/sql2.jpg" class=""> 
+
+<p>来对比一下这两条SQL的执行结果</p>
+<img src="/2018/04/12/db2-use-notes/sql3.jpg" class=""> 
+
+<p>首先这两条都语句的目的，都是对分组查询后的结果集的二次操作。区别在于第二条在<strong>over</strong>括号内使用了<strong>partition by</strong>，从两条结果集的对比中，发现，partiton by 的作用是，对结果集中，某一列再次分组，如果没有partiton by,则把结果集看做一个整体。</p>
+<p>按照上面的分析。现在就可以做到下面这种业务场景的要求了</p>
+<p><strong>对TB_A按照年龄分组，取出每组的前两条信息</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> (</span><br><span class="line">            <span class="keyword">select</span> age,name,salary,<span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> age <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">asc</span>) <span class="keyword">as</span> age_rn</span><br><span class="line">            <span class="keyword">from</span> tb_a</span><br><span class="line">            <span class="keyword">group</span> <span class="keyword">by</span> age,name,salary <span class="keyword">order</span> <span class="keyword">by</span> age</span><br><span class="line">        ) </span><br><span class="line"><span class="keyword">WHERE</span> age_rn <span class="operator">&lt;=</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<img src="/2018/04/12/db2-use-notes/sql4.jpg" class=""> 
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>在本篇中，纪录了日常工作中较为常用的几个DB2命令。希望在工作中可以起到一点帮助作用。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/db2/" rel="tag"># db2</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/" rel="tag"># 数据导入导出</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/03/21/java8-learning/" rel="prev" title="java8特性介绍">
+                  <i class="fa fa-chevron-left"></i> java8特性介绍
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/04/19/markdown-learning/" rel="next" title="Markdown学习">
+                  Markdown学习 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">team-manager</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

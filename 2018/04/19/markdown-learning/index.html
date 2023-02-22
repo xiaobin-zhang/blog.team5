@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="初识 MarkdownMarkDown，我总结它是一种写作的方式方法，也可称之为一种轻量级的语言。这种写作方式最大的特点是用“符号”表示“格式”。所以使用MarkDown的时候，随着你对文字的编辑，同时能够把整篇文章的格式也顺便“打”出来。而不需要写好某些内容，再选中，利用工具栏设置它的格式，而是一次性完成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown学习">
+<meta property="og:url" content="http://example.com/2018/04/19/markdown-learning/index.html">
+<meta property="og:site_name" content="团队技术分享博客">
+<meta property="og:description" content="初识 MarkdownMarkDown，我总结它是一种写作的方式方法，也可称之为一种轻量级的语言。这种写作方式最大的特点是用“符号”表示“格式”。所以使用MarkDown的时候，随着你对文字的编辑，同时能够把整篇文章的格式也顺便“打”出来。而不需要写好某些内容，再选中，利用工具栏设置它的格式，而是一次性完成。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2018/04/19/markdown-learning/markdown.gif">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524138037063&di=171938e75165c92edf008c9f82b1a7c1&imgtype=0&src=http://images.enet.com.cn/egames/articleimage/201211/20121101094002687.jpg">
+<meta property="article:published_time" content="2018-04-19T10:57:44.000Z">
+<meta property="article:modified_time" content="2023-02-22T07:40:16.000Z">
+<meta property="article:author" content="team-manager">
+<meta property="article:tag" content="markdown">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2018/04/19/markdown-learning/markdown.gif">
+
+
+<link rel="canonical" href="http://example.com/2018/04/19/markdown-learning/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/04/19/markdown-learning/","path":"2018/04/19/markdown-learning/","title":"Markdown学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Markdown学习 | 团队技术分享博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">团队技术分享博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">东区交付五部技术分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E8%AF%86-Markdown"><span class="nav-number">1.</span> <span class="nav-text">初识 Markdown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown-%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">2.</span> <span class="nav-text">Markdown 的优势</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%A6%E5%86%99%E7%AE%80%E6%B4%81"><span class="nav-number">2.1.</span> <span class="nav-text">书写简洁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%93%E6%B3%A8%E5%86%99%E4%BD%9C"><span class="nav-number">2.2.</span> <span class="nav-text">专注写作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%A6%E5%86%99%E9%94%99%E8%AF%AF%E6%98%93%E5%8F%91%E7%8E%B0"><span class="nav-number">2.3.</span> <span class="nav-text">书写错误易发现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%86%9F%E7%BB%83MarkDown"><span class="nav-number">3.</span> <span class="nav-text">熟练MarkDown</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AF%B9%E6%96%87%E5%AD%97%E6%A0%B7%E5%BC%8F%E7%9A%84%E7%BC%96%E8%BE%91"><span class="nav-number">3.1.</span> <span class="nav-text">1.对文字样式的编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%86%E7%BA%A7%E6%A0%87%E9%A2%98"><span class="nav-number">3.2.</span> <span class="nav-text">2.分级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D"><span class="nav-number">3.2.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D"><span class="nav-number">3.2.2.</span> <span class="nav-text">第二种</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%B6%85%E9%93%BE%E6%8E%A5"><span class="nav-number">3.3.</span> <span class="nav-text">3.超链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E5%BC%8F"><span class="nav-number">3.3.1.</span> <span class="nav-text">行内式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E5%BC%8F"><span class="nav-number">3.3.2.</span> <span class="nav-text">参考式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E9%93%BE%E6%8E%A5"><span class="nav-number">3.3.3.</span> <span class="nav-text">自动链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%88%97%E8%A1%A8"><span class="nav-number">3.4.</span> <span class="nav-text">4.列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A81"><span class="nav-number">3.4.1.</span> <span class="nav-text">无序列表1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A82"><span class="nav-number">3.4.2.</span> <span class="nav-text">无序列表2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A83"><span class="nav-number">3.4.3.</span> <span class="nav-text">无序列表3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="nav-number">3.4.4.</span> <span class="nav-text">有序列表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%BC%95%E7%94%A8"><span class="nav-number">3.5.</span> <span class="nav-text">5.引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%88%86%E9%9A%94%E7%BA%BF"><span class="nav-number">3.6.</span> <span class="nav-text">6.分隔线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%8F%92%E5%85%A5%E4%BB%A3%E7%A0%81"><span class="nav-number">3.7.</span> <span class="nav-text">7.插入代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E5%BC%8F-1"><span class="nav-number">3.7.1.</span> <span class="nav-text">行内式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="nav-number">3.7.2.</span> <span class="nav-text">多行代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%A9%E8%BF%9B%E5%BC%8F%E5%A4%9A%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="nav-number">3.7.2.1.</span> <span class="nav-text">缩进式多行代码</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MarkDown%E8%AF%AD%E6%B3%95%E8%BF%9B%E9%98%B6"><span class="nav-number">4.</span> <span class="nav-text">MarkDown语法进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%A4%9A%E5%B1%82%E5%B5%8C%E5%A5%97"><span class="nav-number">4.1.</span> <span class="nav-text">1.多层嵌套</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87"><span class="nav-number">4.2.</span> <span class="nav-text">2.插入图片</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E5%BC%8F-2"><span class="nav-number">4.2.1.</span> <span class="nav-text">行内式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E5%BC%8F-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">参考式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B3%A8%E8%84%9A"><span class="nav-number">4.3.</span> <span class="nav-text">3.注脚</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E"><span class="nav-number">4.3.1.</span> <span class="nav-text">语法说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%8F%8A%E6%95%88%E6%9E%9C"><span class="nav-number">4.3.2.</span> <span class="nav-text">代码及效果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%A1%A8%E6%A0%BC"><span class="nav-number">4.4.</span> <span class="nav-text">4.表格</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E-1"><span class="nav-number">4.4.1.</span> <span class="nav-text">语法说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%8F%8A%E6%95%88%E6%9E%9C-1"><span class="nav-number">4.4.2.</span> <span class="nav-text">代码及效果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E6%96%B9%E5%BC%8F%E5%86%99%E8%A1%A8%E6%A0%BC"><span class="nav-number">4.4.2.1.</span> <span class="nav-text">简单方式写表格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E7%94%9F%E6%96%B9%E5%BC%8F%E5%86%99%E8%A1%A8%E6%A0%BC"><span class="nav-number">4.4.2.2.</span> <span class="nav-text">原生方式写表格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E8%A1%A8%E6%A0%BC%E7%AC%AC%E4%BA%8C%E5%88%97%E6%8C%87%E5%AE%9A%E6%96%B9%E5%90%91"><span class="nav-number">4.4.2.3.</span> <span class="nav-text">为表格第二列指定方向</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">team-manager</p>
+  <div class="site-description" itemprop="description">分享各小组的技术成果</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/04/19/markdown-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="team-manager">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="团队技术分享博客">
+      <meta itemprop="description" content="分享各小组的技术成果">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Markdown学习 | 团队技术分享博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Markdown学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-04-19 18:57:44" itemprop="dateCreated datePublished" datetime="2018-04-19T18:57:44+08:00">2018-04-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-22 15:40:16" itemprop="dateModified" datetime="2023-02-22T15:40:16+08:00">2023-02-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img src="/2018/04/19/markdown-learning/markdown.gif" class="" title="markdown 500 400">
+
+<h2 id="初识-Markdown"><a href="#初识-Markdown" class="headerlink" title="初识 Markdown"></a>初识 Markdown</h2><p>MarkDown，我总结它是一种写作的方式方法，也可称之为一种轻量级的语言。这种写作方式最大的特点是用“符号”表示“格式”。所以使用MarkDown的时候，随着你对文字的编辑，同时能够把整篇文章的格式也顺便“打”出来。而不需要写好某些内容，再选中，利用工具栏设置它的格式，而是一次性完成。</p>
+<span id="more"></span>
+
+<h2 id="Markdown-的优势"><a href="#Markdown-的优势" class="headerlink" title="Markdown 的优势"></a>Markdown 的优势</h2><h3 id="书写简洁"><a href="#书写简洁" class="headerlink" title="书写简洁"></a>书写简洁</h3><p>Markdown的语法简洁明了、知识点相对于HTML来说，只是其一小部分，所以对于我们来说，学习起来相对容易，应用起来也更简便；而且功能比纯文本更强，因此有很多人用它来写博客。</p>
+<h3 id="专注写作"><a href="#专注写作" class="headerlink" title="专注写作"></a>专注写作</h3><p>在使用MarkDown写作的时候，设置你所编写文本的格式时，直接通过MarkDown相关语法符号设置，以便内容编写起来更加顺畅。当写到标题的时候，自然地输入“##标题”，就能达到传统写作，再次选中进行格式设置的效果。不由的让我想到，我在进行传统写作的时候，把文章内容写好，再去编辑各个部分的格式的场景。</p>
+<h3 id="书写错误易发现"><a href="#书写错误易发现" class="headerlink" title="书写错误易发现"></a>书写错误易发现</h3><p>MarkDown 由于是使用标记符号来控制排版格式的，所以你在预览时发现的错误都可以直接在文稿中去查看，轻松修正过来。很多时候我们不会意识到这也是一个优势，但是在长期的使用中，就会体会到能快速发现问题和解决问题就是一种优势。</p>
+<h2 id="熟练MarkDown"><a href="#熟练MarkDown" class="headerlink" title="熟练MarkDown"></a>熟练MarkDown</h2><h3 id="1-对文字样式的编辑"><a href="#1-对文字样式的编辑" class="headerlink" title="1.对文字样式的编辑"></a>1.对文字样式的编辑</h3><ol>
+<li>斜体 ：<br><em>斜体</em>　(<code>*斜体*</code>)</li>
+<li>粗体 ：<br><strong>粗体</strong>　(<code>**粗体**</code>)</li>
+<li>加粗斜体 ：<br><em><strong>加粗斜体</strong></em>　(<code>***加粗斜体***</code>)</li>
+<li>删除线 ：<br><del>删除线</del>　(<code>~~删除线~~</code>)</li>
+</ol>
+<h3 id="2-分级标题"><a href="#2-分级标题" class="headerlink" title="2.分级标题"></a>2.分级标题</h3><h4 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h4><pre><code>这是一级标题
+==========
+
+这是二级标题
+-----------
+</code></pre>
+<h4 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h4><pre><code># 一级标题
+## 二级标题
+### 三级标题
+......
+......
+###### 六级标题
+</code></pre>
+<h3 id="3-超链接"><a href="#3-超链接" class="headerlink" title="3.超链接"></a>3.超链接</h3><h4 id="行内式"><a href="#行内式" class="headerlink" title="行内式"></a>行内式</h4><pre><code>欢迎来到[百度](http://www.baidu.com &quot;百度一下，你就知道了&quot;)
+</code></pre>
+<p>欢迎来到<a target="_blank" rel="noopener" href="http://www.baidu.com/" title="百度一下，你就知道了">百度</a></p>
+<h4 id="参考式"><a href="#参考式" class="headerlink" title="参考式"></a>参考式</h4><p>我经常去的几个网站<a target="_blank" rel="noopener" href="http://www.xinhuanet.com/" title="新华网">新华网</a>、<a target="_blank" rel="noopener" href="http://www.baidu.com/" title="baidu">百度</a>以及<a target="_blank" rel="noopener" href="http://www.china.com.cn/" title="中国网">中国网</a></p>
+<p>我经常去的几个网站<a target="_blank" rel="noopener" href="http://www.xinhuanet.com/" title="新华网">新华网</a>、<a target="_blank" rel="noopener" href="http://www.baidu.com/" title="baidu">百度</a>以及<a target="_blank" rel="noopener" href="http://www.china.com.cn/" title="中国网">中国网</a></p>
+<h4 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h4><pre><code>&lt;http://www.china.com.cn/&gt;  
+</code></pre>
+<p><a target="_blank" rel="noopener" href="http://www.china.com.cn/">http://www.china.com.cn/</a>  </p>
+<h3 id="4-列表"><a href="#4-列表" class="headerlink" title="4.列表"></a>4.列表</h3><h4 id="无序列表1"><a href="#无序列表1" class="headerlink" title="无序列表1"></a>无序列表1</h4><pre><code>* 无序列表一
+* 无序列表二
+* 无序列表三
+</code></pre>
+<ul>
+<li>无序列表一</li>
+<li>无序列表二</li>
+<li>无序列表三</li>
+</ul>
+<h4 id="无序列表2"><a href="#无序列表2" class="headerlink" title="无序列表2"></a>无序列表2</h4><pre><code>+ 无序列表一
++ 无序列表二
++ 无序列表三
+</code></pre>
+<ul>
+<li>无序列表一</li>
+<li>无序列表二</li>
+<li>无序列表三</li>
+</ul>
+<h4 id="无序列表3"><a href="#无序列表3" class="headerlink" title="无序列表3"></a>无序列表3</h4><pre><code>- 无序列表一
+- 无序列表二
+- 无序列表三
+</code></pre>
+<ul>
+<li>无序列表一</li>
+<li>无序列表二</li>
+<li>无序列表三</li>
+</ul>
+<h4 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h4><p>语法：数字+英文句点+空格  </p>
+<pre><code>1. 有序列表一
+2. 有序列表二
+3. 有序列表三
+</code></pre>
+<ol>
+<li>有序列表一</li>
+<li>有序列表二</li>
+<li>有序列表三</li>
+</ol>
+<h3 id="5-引用"><a href="#5-引用" class="headerlink" title="5.引用"></a>5.引用</h3><pre><code>&gt; 这是一个有两段文字的引用,
+
+&gt; 无意义的占行文字1.
+
+&gt; 无意义的占行文字2.
+&gt;
+&gt; 无意义的占行文字3.
+
+&gt; 无意义的占行文字4.
+</code></pre>
+<blockquote>
+<p>这是一个有两段文字的引用,</p>
+</blockquote>
+<blockquote>
+<p>无意义的占行文字1.</p>
+</blockquote>
+<blockquote>
+<p>无意义的占行文字2.</p>
+<p>无意义的占行文字3.</p>
+</blockquote>
+<blockquote>
+<p>无意义的占行文字4.</p>
+</blockquote>
+<h3 id="6-分隔线"><a href="#6-分隔线" class="headerlink" title="6.分隔线"></a>6.分隔线</h3><pre><code>* * *
+***
+*****
+- - -
+---------------------------------------
+_________
+</code></pre>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<h3 id="7-插入代码"><a href="#7-插入代码" class="headerlink" title="7.插入代码"></a>7.插入代码</h3><h4 id="行内式-1"><a href="#行内式-1" class="headerlink" title="行内式"></a>行内式</h4><pre><code>C语言里的函数 `scanf()` 怎么使用？
+</code></pre>
+<p>C语言里的函数 <code>scanf()</code> 怎么使用？</p>
+<h4 id="多行代码"><a href="#多行代码" class="headerlink" title="多行代码"></a>多行代码</h4><h5 id="缩进式多行代码"><a href="#缩进式多行代码" class="headerlink" title="缩进式多行代码"></a>缩进式多行代码</h5><pre><code>（每行都进行缩进）
+#include &lt;stdio.h&gt;
+int main(void)
+&#123;
+    printf(&quot;Hello world\n&quot;);
+&#125;
+</code></pre>
+<h2 id="MarkDown语法进阶"><a href="#MarkDown语法进阶" class="headerlink" title="MarkDown语法进阶"></a>MarkDown语法进阶</h2><h3 id="1-多层嵌套"><a href="#1-多层嵌套" class="headerlink" title="1.多层嵌套"></a>1.多层嵌套</h3><pre><code>&gt;&gt;&gt; 请问 Markdwon 怎么用？ - 小白
+
+&gt;&gt; 自己看教程！ - 愤青
+
+&gt; 教程在哪？ - 小白
+</code></pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>请问 Markdwon 怎么用？ - 小白</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>自己看教程！ - 愤青</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>教程在哪？ - 小白</p>
+</blockquote>
+<h3 id="2-插入图片"><a href="#2-插入图片" class="headerlink" title="2.插入图片"></a>2.插入图片</h3><h4 id="行内式-2"><a href="#行内式-2" class="headerlink" title="行内式"></a>行内式</h4><pre><code>![中国](https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1524138037063&amp;di=171938e75165c92edf008c9f82b1a7c1&amp;imgtype=0&amp;src=http%3A%2F%2Fimages.enet.com.cn%2Fegames%2Farticleimage%2F201211%2F20121101094002687.jpg &quot;中国&quot;)
+</code></pre>
+<p><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524138037063&di=171938e75165c92edf008c9f82b1a7c1&imgtype=0&src=http://images.enet.com.cn/egames/articleimage/201211/20121101094002687.jpg" alt="中国" title="中国"></p>
+<h4 id="参考式-1"><a href="#参考式-1" class="headerlink" title="参考式"></a>参考式</h4><pre><code>![中国][China]
+[China]:https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1524138037063&amp;di=171938e75165c92edf008c9f82b1a7c1&amp;imgtype=0&amp;src=http%3A%2F%2Fimages.enet.com.cn%2Fegames%2Farticleimage%2F201211%2F20121101094002687.jpg  &quot;中国&quot;
+</code></pre>
+<p>![中国][China]<br>[China]:<a target="_blank" rel="noopener" href="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524138037063&di=171938e75165c92edf008c9f82b1a7c1&imgtype=0&src=http://images.enet.com.cn/egames/articleimage/201211/20121101094002687.jpg">https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1524138037063&amp;di=171938e75165c92edf008c9f82b1a7c1&amp;imgtype=0&amp;src=http%3A%2F%2Fimages.enet.com.cn%2Fegames%2Farticleimage%2F201211%2F20121101094002687.jpg</a>  “中国”</p>
+<h3 id="3-注脚"><a href="#3-注脚" class="headerlink" title="3.注脚"></a>3.注脚</h3><h4 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h4><p>在需要添加注脚的文字后加上脚注名字[^注脚名字],称为加注。 然后在文本的任意位置(一般在最后)添加脚注，脚注前必须有对应的脚注名字。</p>
+<p>注意：经测试注脚与注脚之间必须空一行，不然会失效。成功后会发现，即使你没有把注脚写在文末，经Markdown转换后，也会自动归类到文章的最后。注脚在使用MarkDown(Extra)处理时可以显示效果，其他地方效果可能不显示。</p>
+<h4 id="代码及效果"><a href="#代码及效果" class="headerlink" title="代码及效果"></a>代码及效果</h4><pre><code>使用 Markdown[^1]可以效率的书写文档,   
+
+不知道的话，你就百度[^Le]。
+
+[^1]:Markdown是一种纯文本标记语言   
+
+[^Le]:百度一下，你就知道了。
+</code></pre>
+<p>使用 Markdown<a href="Markdown%E6%98%AF%E4%B8%80%E7%A7%8D%E7%BA%AF%E6%96%87%E6%9C%AC%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">^1</a>可以效率的书写文档,   </p>
+<p>不知道的话，你就百度<a href="%E7%99%BE%E5%BA%A6%E4%B8%80%E4%B8%8B%EF%BC%8C%E4%BD%A0%E5%B0%B1%E7%9F%A5%E9%81%93%E4%BA%86%E3%80%82">^Le</a>。</p>
+<h3 id="4-表格"><a href="#4-表格" class="headerlink" title="4.表格"></a>4.表格</h3><h4 id="语法说明-1"><a href="#语法说明-1" class="headerlink" title="语法说明"></a>语法说明</h4><p>不管是哪种方式，第一行为表头，第二行分隔表头和主体部分，第三行开始每一行为一个表格行。</p>
+<p>列于列之间用管道符|隔开。原生方式的表格每一行的两边也要有管道符。</p>
+<p>第二行还可以为不同的列指定对齐方向。默认为左对齐，在-右边加上:就右对齐。</p>
+<h4 id="代码及效果-1"><a href="#代码及效果-1" class="headerlink" title="代码及效果"></a>代码及效果</h4><h5 id="简单方式写表格"><a href="#简单方式写表格" class="headerlink" title="简单方式写表格"></a>简单方式写表格</h5><pre><code>学号|姓名|分数    
+-|-|-   
+小明|男|75  
+小红|女|79   
+小陆|男|92 
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>分数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>小明</td>
+<td>男</td>
+<td>75</td>
+</tr>
+<tr>
+<td>小红</td>
+<td>女</td>
+<td>79</td>
+</tr>
+<tr>
+<td>小陆</td>
+<td>男</td>
+<td>92</td>
+</tr>
+</tbody></table>
+<h5 id="原生方式写表格"><a href="#原生方式写表格" class="headerlink" title="原生方式写表格"></a>原生方式写表格</h5><pre><code>|学号|姓名|分数|  
+|-|-|-|  
+|小明|男|75|  
+|小红|女|79|  
+|小陆|男|92|
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>分数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>小明</td>
+<td>男</td>
+<td>75</td>
+</tr>
+<tr>
+<td>小红</td>
+<td>女</td>
+<td>79</td>
+</tr>
+<tr>
+<td>小陆</td>
+<td>男</td>
+<td>92</td>
+</tr>
+</tbody></table>
+<h5 id="为表格第二列指定方向"><a href="#为表格第二列指定方向" class="headerlink" title="为表格第二列指定方向"></a>为表格第二列指定方向</h5><pre><code>产品|价格  
+-|-:  
+Leanote 高级账号|60元/年  
+Leanote 超级账号|120元/年
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>产品</th>
+<th align="right">价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Leanote 高级账号</td>
+<td align="right">60元&#x2F;年</td>
+</tr>
+<tr>
+<td>Leanote 超级账号</td>
+<td align="right">120元&#x2F;年</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/markdown/" rel="tag"># markdown</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/04/12/db2-use-notes/" rel="prev" title="DB2数据库使用小技巧">
+                  <i class="fa fa-chevron-left"></i> DB2数据库使用小技巧
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/05/15/git-learning/" rel="next" title="Git学习">
+                  Git学习 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">team-manager</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
